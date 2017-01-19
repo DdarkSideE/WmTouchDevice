@@ -104,7 +104,7 @@ namespace WmTouchDevice
                 if (rootVisual.IsAncestorOf(relativeVisual))
                     pt = rootVisual.TransformToDescendant(relativeVisual).Transform(Position);
             }
-
+            pt.Offset(0, -SystemParameters.WindowCaptionHeight);
             var rect = new Rect(pt, new Size(1.0, 1.0));
             return new TouchPoint(this, pt, rect, TouchAction.Move);
         }
