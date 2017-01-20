@@ -46,7 +46,6 @@ namespace WmTouchDevice
                         var input = inputs[i];
                         var position = GraphicsHelper.DivideByDpi(new Point(input.x * 0.01, input.y * 0.01));
                         position.Offset(-(double)_actualLeft.GetValue(window), -(double)_actualTop.GetValue(window));
-                        position.Offset(0, -SystemParameters.WindowCaptionHeight);
 
                         MessageTouchDevice device;
                         if (!_devices.TryGetValue(input.dwID, out device))

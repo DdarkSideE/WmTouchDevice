@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -75,13 +76,30 @@ namespace WpfSample
             var p = e.GetTouchPoint(MainCanvas).Position;
             var el = new Ellipse
             {
-                Height = 5,
-                Width = 5,
+                Height = 10,
+                Width = 10,
                 Fill = Brushes.Black
             };
-            MainCanvas.Children.Add(el);
-            Canvas.SetLeft(el, p.X - 2.5);
-            Canvas.SetTop(el, p.Y - 2.5);
+            MainCanvas.Children.Add(el); //try to comment this line and manipulation delta will lag.
+            Canvas.SetLeft(el, p.X - 5);
+            Canvas.SetTop(el, p.Y - 5);
+        }
+
+        private void MainWindow_OnManipulationDelta(object sender, ManipulationDeltaEventArgs e)
+        {
+            foreach (var eManipulator in e.Manipulators)
+            {
+                var p = eManipulator.GetPosition(MainCanvas);
+                var el = new Ellipse
+                {
+                    Height = 5,
+                    Width = 5,
+                    Fill = Brushes.Red
+                };
+                MainCanvas.Children.Add(el);
+                Canvas.SetLeft(el, p.X - 2.5);
+                Canvas.SetTop(el, p.Y - 2.5);
+            }
         }
     }
 }
